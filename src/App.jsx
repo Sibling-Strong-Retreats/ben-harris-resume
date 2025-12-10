@@ -199,141 +199,164 @@ export default function BenHarrisResume() {
         zIndex: 1
       }} />
 
-      {/* Hero Splash Section with Fullscreen Background */}
+      {/* Hero Splash Section - Side by Side */}
       <div style={{
         position: 'relative',
-        height: '100vh',
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         overflow: 'hidden',
-        opacity: Math.max(0, 1 - scrollY / 600),
+        opacity: Math.max(0, 1 - scrollY / 700),
+        transform: `translateY(${scrollY * 0.3}px)`,
         transition: 'opacity 0.2s ease-out',
-        pointerEvents: scrollY > 500 ? 'none' : 'auto',
-        zIndex: 3
+        pointerEvents: scrollY > 600 ? 'none' : 'auto',
+        zIndex: 3,
+        padding: isMobile ? '60px 20px' : '80px 40px'
       }}>
-        {/* Background Image */}
         <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundImage: `url(${import.meta.env.BASE_URL}ben.jpg)`,
-          backgroundSize: 'cover',
-          backgroundPosition: isMobile ? 'center 15%' : 'center 20%',
-          backgroundRepeat: 'no-repeat',
-          transform: `scale(${1 + scrollY / 2000})`,
-          transition: 'transform 0.1s ease-out'
-        }} />
-
-        {/* Gradient Overlays */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: 'linear-gradient(to bottom, rgba(26, 26, 26, 0.3) 0%, rgba(13, 13, 13, 0.7) 70%, rgba(13, 13, 13, 0.95) 100%)',
-          zIndex: 1
-        }} />
-
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: 'radial-gradient(ellipse at center, transparent 0%, rgba(13, 13, 13, 0.4) 100%)',
-          zIndex: 1
-        }} />
-
-        {/* Content */}
-        <div style={{
-          position: 'relative',
-          zIndex: 2,
-          height: '100%',
           display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'flex-end',
+          flexDirection: isMobile ? 'column' : 'row',
           alignItems: 'center',
-          padding: isMobile ? '60px 20px 80px' : '80px 40px 100px',
-          textAlign: 'center'
+          justifyContent: 'center',
+          gap: isMobile ? '40px' : '60px',
+          maxWidth: '1200px',
+          width: '100%',
+          opacity: isLoaded ? 1 : 0,
+          transform: isLoaded ? 'translateY(0)' : 'translateY(50px)',
+          transition: 'all 1.5s cubic-bezier(0.16, 1, 0.3, 1)'
         }}>
+          {/* Left Side - Image */}
           <div style={{
-            opacity: isLoaded ? 1 : 0,
-            transform: isLoaded ? 'translateY(0)' : 'translateY(50px)',
-            transition: 'all 1.5s cubic-bezier(0.16, 1, 0.3, 1)',
-            maxWidth: '900px'
+            flex: isMobile ? 'none' : '0 0 45%',
+            display: 'flex',
+            justifyContent: 'center',
+            transform: isMobile ? 'none' : `translateX(${-scrollY * 0.1}px)`,
+            transition: 'transform 0.1s ease-out'
+          }}>
+            <div style={{
+              position: 'relative',
+              maxWidth: isMobile ? '320px' : '450px',
+              width: '100%'
+            }}>
+              <img
+                src={`${import.meta.env.BASE_URL}ben.jpg`}
+                alt="Ben Harris"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  borderRadius: '12px',
+                  border: '3px solid rgba(201, 168, 124, 0.3)',
+                  boxShadow: '0 20px 60px rgba(0, 0, 0, 0.6)',
+                  display: 'block'
+                }}
+              />
+              {/* Decorative corner accent */}
+              <div style={{
+                position: 'absolute',
+                top: '-10px',
+                left: '-10px',
+                width: '60px',
+                height: '60px',
+                border: '2px solid rgba(201, 168, 124, 0.4)',
+                borderRight: 'none',
+                borderBottom: 'none',
+                borderRadius: '12px 0 0 0'
+              }} />
+            </div>
+          </div>
+
+          {/* Right Side - Content */}
+          <div style={{
+            flex: isMobile ? 'none' : '1',
+            textAlign: isMobile ? 'center' : 'left',
+            transform: isMobile ? 'none' : `translateX(${scrollY * 0.1}px)`,
+            transition: 'transform 0.1s ease-out'
           }}>
             {/* Name */}
             <h1 style={{
-              fontSize: isMobile ? 'clamp(2.5rem, 10vw, 4rem)' : 'clamp(3rem, 8vw, 5.5rem)',
+              fontSize: isMobile ? 'clamp(2.5rem, 10vw, 4rem)' : 'clamp(3.5rem, 6vw, 5.5rem)',
               fontWeight: 300,
               letterSpacing: '-0.03em',
-              margin: '0 0 20px 0',
+              margin: '0 0 24px 0',
               fontFamily: "'Palatino Linotype', 'Book Antiqua', Palatino, serif",
-              color: '#ffffff',
-              textShadow: '0 4px 20px rgba(0, 0, 0, 0.7)',
+              background: 'linear-gradient(135deg, #f5f0e8 0%, #c9a87c 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
               lineHeight: 1.1
             }}>
               Ben Harris
             </h1>
 
-            {/* Tagline */}
-            <p style={{
-              fontSize: isMobile ? 'clamp(1.1rem, 4vw, 1.6rem)' : 'clamp(1.4rem, 3vw, 2rem)',
-              fontWeight: 300,
-              letterSpacing: '0.02em',
-              margin: '0 0 30px 0',
-              fontFamily: "'Georgia', serif",
-              color: '#c9a87c',
-              textShadow: '0 2px 10px rgba(0, 0, 0, 0.7)',
-              lineHeight: 1.5,
-              fontStyle: 'italic'
-            }}>
-              Building connections. Creating impact. Leading with integrity.
-            </p>
-
-            {/* Years Experience Badge */}
+            {/* Years Badge */}
             <div style={{
               display: 'inline-block',
-              padding: isMobile ? '10px 20px' : '12px 30px',
-              background: 'rgba(201, 168, 124, 0.15)',
-              border: '1px solid rgba(201, 168, 124, 0.4)',
+              padding: '8px 20px',
+              background: 'rgba(201, 168, 124, 0.1)',
+              border: '1px solid rgba(201, 168, 124, 0.3)',
               borderRadius: '6px',
-              backdropFilter: 'blur(10px)',
-              marginBottom: '60px'
+              marginBottom: '24px'
             }}>
               <span style={{
-                fontSize: isMobile ? '0.8rem' : '0.9rem',
-                letterSpacing: '0.2em',
+                fontSize: '0.75rem',
+                letterSpacing: '0.25em',
                 textTransform: 'uppercase',
-                color: '#f5f0e8',
-                fontFamily: "'Trebuchet MS', sans-serif",
-                textShadow: '0 2px 8px rgba(0, 0, 0, 0.5)'
+                color: '#c9a87c',
+                fontFamily: "'Trebuchet MS', sans-serif"
               }}>
                 20+ Years Experience
               </span>
             </div>
 
+            {/* Tagline */}
+            <p style={{
+              fontSize: isMobile ? 'clamp(1.2rem, 4vw, 1.8rem)' : 'clamp(1.5rem, 2.5vw, 2.2rem)',
+              fontWeight: 300,
+              letterSpacing: '0.01em',
+              margin: '0 0 32px 0',
+              fontFamily: "'Georgia', serif",
+              color: '#b8b0a5',
+              lineHeight: 1.5,
+              fontStyle: 'italic',
+              maxWidth: '600px'
+            }}>
+              Building connections.<br />
+              Creating impact.<br />
+              Leading with integrity.
+            </p>
+
+            {/* Subtitle */}
+            <p style={{
+              fontSize: '1.1rem',
+              fontWeight: 400,
+              color: '#8a8275',
+              margin: '0 0 40px 0',
+              letterSpacing: '0.05em',
+              fontFamily: "'Trebuchet MS', sans-serif"
+            }}>
+              Communications · Engagement · Leadership
+            </p>
+
             {/* Scroll Indicator */}
             <div style={{
-              opacity: 0.6,
-              animation: 'bounce 2s infinite'
+              opacity: 0.5,
+              animation: 'bounce 2s infinite',
+              marginTop: '20px'
             }}>
               <div style={{
-                fontSize: '0.75rem',
+                fontSize: '0.7rem',
                 letterSpacing: '0.3em',
                 textTransform: 'uppercase',
-                color: '#e8e4df',
-                marginBottom: '12px',
-                fontFamily: "'Trebuchet MS', sans-serif",
-                textShadow: '0 2px 8px rgba(0, 0, 0, 0.7)'
+                color: '#6a655d',
+                marginBottom: '8px',
+                fontFamily: "'Trebuchet MS', sans-serif"
               }}>
                 Scroll to explore
               </div>
               <div style={{
-                fontSize: '1.5rem',
-                color: '#c9a87c',
-                textShadow: '0 2px 8px rgba(0, 0, 0, 0.7)'
+                fontSize: '1.2rem',
+                color: '#c9a87c'
               }}>
                 ↓
               </div>
