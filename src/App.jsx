@@ -525,8 +525,8 @@ export default function BenHarrisResume() {
           </div>
 
           <a
-            href="/Ben%20Harris%202026%20Resume%20&%20Testimonials.pdf"
-            download="Ben Harris 2026 Resume & Testimonials.pdf"
+            href={`${import.meta.env.BASE_URL}Ben-Harris-2026-Resume-Testimonials.pdf`}
+            download="Ben-Harris-2026-Resume-Testimonials.pdf"
             style={{
               display: 'inline-block',
               padding: '14px 32px',
