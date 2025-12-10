@@ -321,9 +321,8 @@ export default function BenHarrisResume() {
               fontStyle: 'italic',
               maxWidth: '600px'
             }}>
-              Building connections.<br />
-              Creating impact.<br />
-              Leading with integrity.
+              Grounded in empathy.<br />
+              Focused on results.
             </p>
 
             {/* Subtitle */}
