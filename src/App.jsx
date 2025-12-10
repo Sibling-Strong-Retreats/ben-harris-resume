@@ -5,10 +5,17 @@ export default function BenHarrisResume() {
   const [activeSection, setActiveSection] = useState(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [testimonialFade, setTestimonialFade] = useState(true);
+  const [emailCopied, setEmailCopied] = useState(false);
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText('benharris207@gmail.com');
+    setEmailCopied(true);
+    setTimeout(() => setEmailCopied(false), 2000);
+  };
 
   const testimonials = [
     {
@@ -241,7 +248,7 @@ export default function BenHarrisResume() {
             marginBottom: '32px'
           }}>
             {[
-              { label: 'Email', value: 'benharris207@gmail.com' },
+              { label: 'Email', value: 'benharris207@gmail.com', copyable: true },
               { label: 'Phone', value: '404.387.3323' },
               { label: 'Location', value: 'Decatur, GA' },
               { label: 'LinkedIn', value: '/in/benharris207', url: 'https://www.linkedin.com/in/benharris207' }
@@ -261,18 +268,44 @@ export default function BenHarrisResume() {
                 }}>
                   {item.label}
                 </span>
-                {item.url ? (
-                  <a href={item.url} target="_blank" rel="noopener noreferrer" style={{
-                    color: '#c9a87c',
-                    textDecoration: 'none',
-                    transition: 'opacity 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => e.target.style.opacity = '0.7'}
-                  onMouseLeave={(e) => e.target.style.opacity = '1'}
-                  >{item.value}</a>
-                ) : (
-                  <span style={{ color: '#c9a87c' }}>{item.value}</span>
-                )}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  {item.url ? (
+                    <a href={item.url} target="_blank" rel="noopener noreferrer" style={{
+                      color: '#c9a87c',
+                      textDecoration: 'none',
+                      transition: 'opacity 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => e.target.style.opacity = '0.7'}
+                    onMouseLeave={(e) => e.target.style.opacity = '1'}
+                    >{item.value}</a>
+                  ) : (
+                    <span style={{ color: '#c9a87c' }}>{item.value}</span>
+                  )}
+                  {item.copyable && (
+                    <button
+                      onClick={copyEmail}
+                      style={{
+                        background: emailCopied ? 'rgba(201, 168, 124, 0.2)' : 'rgba(201, 168, 124, 0.08)',
+                        border: '1px solid rgba(201, 168, 124, 0.3)',
+                        borderRadius: '4px',
+                        padding: '4px 8px',
+                        cursor: 'pointer',
+                        color: '#c9a87c',
+                        fontSize: '0.7rem',
+                        fontFamily: "'Trebuchet MS', sans-serif",
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!emailCopied) e.target.style.background = 'rgba(201, 168, 124, 0.15)';
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!emailCopied) e.target.style.background = 'rgba(201, 168, 124, 0.08)';
+                      }}
+                    >
+                      {emailCopied ? '✓ Copied' : 'Copy'}
+                    </button>
+                  )}
+                </div>
               </div>
             ))}
           </div>
