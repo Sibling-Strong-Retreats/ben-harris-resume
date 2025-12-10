@@ -226,7 +226,7 @@ export default function BenHarrisResume() {
             display: 'inline-block'
           }}>
             <img
-              src="/ben.jpg"
+              src={`${import.meta.env.BASE_URL}ben.jpg`}
               alt="Ben Harris"
               style={{
                 width: isMobile ? 'min(280px, 75vw)' : 'min(400px, 80vw)',
@@ -309,7 +309,7 @@ export default function BenHarrisResume() {
               pointerEvents: 'none'
             }}>
               <img
-                src="/ben.jpg"
+                src={`${import.meta.env.BASE_URL}ben.jpg`}
                 alt="Ben Harris"
                 style={{
                   width: '120px',
