@@ -165,7 +165,7 @@ export default function BenHarrisResume() {
       {/* Decorative accent line */}
       <div style={{
         position: 'fixed',
-        left: '60px',
+        left: '20px',
         top: 0,
         bottom: 0,
         width: '1px',
@@ -241,7 +241,7 @@ export default function BenHarrisResume() {
               { label: 'Email', value: 'benharris207@gmail.com' },
               { label: 'Phone', value: '404.387.3323' },
               { label: 'Location', value: 'Decatur, GA' },
-              { label: 'LinkedIn', value: '/in/benharris207' }
+              { label: 'LinkedIn', value: '/in/benharris207', url: 'https://www.linkedin.com/in/benharris207' }
             ].map((item, i) => (
               <div key={i} style={{
                 opacity: isLoaded ? 1 : 0,
@@ -258,7 +258,18 @@ export default function BenHarrisResume() {
                 }}>
                   {item.label}
                 </span>
-                <span style={{ color: '#c9a87c' }}>{item.value}</span>
+                {item.url ? (
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" style={{
+                    color: '#c9a87c',
+                    textDecoration: 'none',
+                    transition: 'opacity 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => e.target.style.opacity = '0.7'}
+                  onMouseLeave={(e) => e.target.style.opacity = '1'}
+                  >{item.value}</a>
+                ) : (
+                  <span style={{ color: '#c9a87c' }}>{item.value}</span>
+                )}
               </div>
             ))}
           </div>
