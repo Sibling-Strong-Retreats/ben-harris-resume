@@ -6,9 +6,25 @@ export default function BenHarrisResume() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [testimonialFade, setTestimonialFade] = useState(true);
   const [emailCopied, setEmailCopied] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setIsLoaded(true);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const copyEmail = () => {
@@ -183,6 +199,89 @@ export default function BenHarrisResume() {
         zIndex: 1
       }} />
 
+      {/* Hero Splash Section */}
+      <div style={{
+        position: 'relative',
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        opacity: Math.max(0, 1 - scrollY / 600),
+        transform: `scale(${Math.max(0.8, 1 - scrollY / 2000)})`,
+        transition: 'opacity 0.1s ease-out, transform 0.1s ease-out',
+        pointerEvents: scrollY > 500 ? 'none' : 'auto',
+        zIndex: 3
+      }}>
+        <div style={{
+          textAlign: 'center',
+          maxWidth: '90%',
+          opacity: isLoaded ? 1 : 0,
+          transform: isLoaded ? 'translateY(0)' : 'translateY(50px)',
+          transition: 'all 1.5s cubic-bezier(0.16, 1, 0.3, 1)'
+        }}>
+          {/* Large Profile Image */}
+          <div style={{
+            marginBottom: isMobile ? '30px' : '40px',
+            display: 'inline-block'
+          }}>
+            <img
+              src="/ben.jpg"
+              alt="Ben Harris"
+              style={{
+                width: isMobile ? 'min(280px, 75vw)' : 'min(400px, 80vw)',
+                height: 'auto',
+                borderRadius: '8px',
+                border: '3px solid rgba(201, 168, 124, 0.3)',
+                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
+                display: 'block'
+              }}
+            />
+          </div>
+
+          {/* Hero Tagline */}
+          <h1 style={{
+            fontSize: isMobile ? 'clamp(1.5rem, 5vw, 2.5rem)' : 'clamp(2rem, 6vw, 3.5rem)',
+            fontWeight: 300,
+            letterSpacing: '-0.02em',
+            margin: '0 0 20px 0',
+            padding: isMobile ? '0 20px' : '0',
+            fontFamily: "'Palatino Linotype', 'Book Antiqua', Palatino, serif",
+            background: 'linear-gradient(135deg, #f5f0e8 0%, #c9a87c 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            lineHeight: 1.3
+          }}>
+            Building connections.<br />Creating impact.<br />Leading with integrity.
+          </h1>
+
+          {/* Scroll Indicator */}
+          <div style={{
+            marginTop: '60px',
+            opacity: 0.6,
+            animation: 'bounce 2s infinite'
+          }}>
+            <div style={{
+              fontSize: '0.75rem',
+              letterSpacing: '0.3em',
+              textTransform: 'uppercase',
+              color: '#8a8275',
+              marginBottom: '12px',
+              fontFamily: "'Trebuchet MS', sans-serif"
+            }}>
+              Scroll to explore
+            </div>
+            <div style={{
+              fontSize: '1.5rem',
+              color: '#c9a87c'
+            }}>
+              ↓
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div style={{
         maxWidth: '1000px',
         margin: '0 auto',
@@ -195,14 +294,43 @@ export default function BenHarrisResume() {
           marginBottom: '80px',
           opacity: isLoaded ? 1 : 0,
           transform: isLoaded ? 'translateY(0)' : 'translateY(30px)',
-          transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)'
+          transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
+          position: 'relative'
         }}>
+          {/* Small profile image that appears after scrolling - desktop only */}
+          {!isMobile && (
+            <div style={{
+              position: 'absolute',
+              top: '-20px',
+              left: '-20px',
+              opacity: Math.min(1, Math.max(0, (scrollY - 400) / 200)),
+              transform: `scale(${Math.min(1, Math.max(0.8, (scrollY - 300) / 300))})`,
+              transition: 'opacity 0.3s ease, transform 0.3s ease',
+              pointerEvents: 'none'
+            }}>
+              <img
+                src="/ben.jpg"
+                alt="Ben Harris"
+                style={{
+                  width: '120px',
+                  height: 'auto',
+                  borderRadius: '8px',
+                  border: '2px solid rgba(201, 168, 124, 0.3)',
+                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
+                  display: 'block'
+                }}
+              />
+            </div>
+          )}
+
           <div style={{
             display: 'flex',
             alignItems: 'baseline',
             gap: '20px',
             marginBottom: '12px',
-            flexWrap: 'wrap'
+            flexWrap: 'wrap',
+            marginLeft: !isMobile && scrollY > 500 ? '110px' : '0',
+            transition: 'margin-left 0.5s ease'
           }}>
             <h1 style={{
               fontSize: 'clamp(2.5rem, 8vw, 4rem)',
@@ -268,18 +396,19 @@ export default function BenHarrisResume() {
                 }}>
                   {item.label}
                 </span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                   {item.url ? (
                     <a href={item.url} target="_blank" rel="noopener noreferrer" style={{
                       color: '#c9a87c',
                       textDecoration: 'none',
-                      transition: 'opacity 0.3s ease'
+                      transition: 'opacity 0.3s ease',
+                      lineHeight: '1.5'
                     }}
                     onMouseEnter={(e) => e.target.style.opacity = '0.7'}
                     onMouseLeave={(e) => e.target.style.opacity = '1'}
                     >{item.value}</a>
                   ) : (
-                    <span style={{ color: '#c9a87c' }}>{item.value}</span>
+                    <span style={{ color: '#c9a87c', lineHeight: '1.5' }}>{item.value}</span>
                   )}
                   {item.copyable && (
                     <button
@@ -288,12 +417,13 @@ export default function BenHarrisResume() {
                         background: emailCopied ? 'rgba(201, 168, 124, 0.2)' : 'rgba(201, 168, 124, 0.08)',
                         border: '1px solid rgba(201, 168, 124, 0.3)',
                         borderRadius: '4px',
-                        padding: '4px 8px',
+                        padding: '3px 8px',
                         cursor: 'pointer',
                         color: '#c9a87c',
                         fontSize: '0.7rem',
                         fontFamily: "'Trebuchet MS', sans-serif",
-                        transition: 'all 0.2s ease'
+                        transition: 'all 0.2s ease',
+                        lineHeight: '1.2'
                       }}
                       onMouseEnter={(e) => {
                         if (!emailCopied) e.target.style.background = 'rgba(201, 168, 124, 0.15)';
