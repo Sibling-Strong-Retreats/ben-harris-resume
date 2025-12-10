@@ -218,7 +218,7 @@ export default function BenHarrisResume() {
           height: '100%',
           backgroundImage: `url(${import.meta.env.BASE_URL}ben.jpg)`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center top',
+          backgroundPosition: isMobile ? 'center 15%' : 'center 20%',
           backgroundRepeat: 'no-repeat',
           transform: `scale(${1 + scrollY / 2000})`,
           transition: 'transform 0.1s ease-out'
@@ -422,7 +422,9 @@ export default function BenHarrisResume() {
             color: '#a09485',
             margin: '0 0 40px 0',
             fontStyle: 'italic',
-            letterSpacing: '0.02em'
+            letterSpacing: '0.02em',
+            marginLeft: !isMobile && scrollY > 500 ? '110px' : '0',
+            transition: 'margin-left 0.5s ease'
           }}>
             Communications · Engagement · Leadership
           </p>
