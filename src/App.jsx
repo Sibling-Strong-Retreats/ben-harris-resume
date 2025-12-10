@@ -237,14 +237,14 @@ export default function BenHarrisResume() {
             gap: '32px',
             flexWrap: 'wrap',
             fontSize: '0.85rem',
-            fontFamily: "'Trebuchet MS', sans-serif"
+            fontFamily: "'Trebuchet MS', sans-serif",
+            marginBottom: '32px'
           }}>
             {[
               { label: 'Email', value: 'benharris207@gmail.com' },
               { label: 'Phone', value: '404.387.3323' },
               { label: 'Location', value: 'Decatur, GA' },
-              { label: 'LinkedIn', value: '/in/benharris207', url: 'https://www.linkedin.com/in/benharris207' },
-              { label: 'Resume', value: 'Download PDF', url: '/Ben Harris 2026 Resume & Testimonials.pdf', download: true }
+              { label: 'LinkedIn', value: '/in/benharris207', url: 'https://www.linkedin.com/in/benharris207' }
             ].map((item, i) => (
               <div key={i} style={{
                 opacity: isLoaded ? 1 : 0,
@@ -262,7 +262,7 @@ export default function BenHarrisResume() {
                   {item.label}
                 </span>
                 {item.url ? (
-                  <a href={item.url} target="_blank" rel="noopener noreferrer" download={item.download} style={{
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" style={{
                     color: '#c9a87c',
                     textDecoration: 'none',
                     transition: 'opacity 0.3s ease'
@@ -276,6 +276,42 @@ export default function BenHarrisResume() {
               </div>
             ))}
           </div>
+
+          <a
+            href="/Ben Harris 2026 Resume & Testimonials.pdf"
+            download
+            style={{
+              display: 'inline-block',
+              padding: '14px 32px',
+              background: 'linear-gradient(135deg, #c9a87c 0%, #b8966b 100%)',
+              color: '#1a1a1a',
+              textDecoration: 'none',
+              borderRadius: '6px',
+              fontFamily: "'Trebuchet MS', sans-serif",
+              fontSize: '0.9rem',
+              fontWeight: 600,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              transition: 'all 0.3s ease',
+              border: '2px solid #c9a87c',
+              boxShadow: '0 4px 12px rgba(201, 168, 124, 0.2)',
+              opacity: isLoaded ? 1 : 0,
+              transform: isLoaded ? 'translateY(0)' : 'translateY(20px)',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.boxShadow = '0 6px 20px rgba(201, 168, 124, 0.35)';
+              e.target.style.background = 'linear-gradient(135deg, #d4b388 0%, #c9a87c 100%)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = '0 4px 12px rgba(201, 168, 124, 0.2)';
+              e.target.style.background = 'linear-gradient(135deg, #c9a87c 0%, #b8966b 100%)';
+            }}
+          >
+            Download Resume PDF
+          </a>
         </header>
 
         {/* About section */}
