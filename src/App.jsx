@@ -147,6 +147,69 @@ export default function BenHarrisResume() {
     { category: "Operations", items: ["Fundraising", "Event Planning", "CRM Systems", "Process Development"] }
   ];
 
+  // Logo Component
+  const Logo = ({ size = 48 }) => (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 100 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{
+        filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3))',
+        transition: 'transform 0.3s ease',
+        cursor: 'pointer'
+      }}
+      onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1) rotate(5deg)'}
+      onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1) rotate(0deg)'}
+    >
+      {/* Outer circle with gradient */}
+      <circle
+        cx="50"
+        cy="50"
+        r="48"
+        stroke="url(#logoGradient)"
+        strokeWidth="1.5"
+        fill="none"
+        opacity="0.4"
+      />
+
+      {/* Inner decorative circle */}
+      <circle
+        cx="50"
+        cy="50"
+        r="42"
+        stroke="#c9a87c"
+        strokeWidth="0.5"
+        fill="none"
+        opacity="0.3"
+      />
+
+      {/* BH Monogram */}
+      <text
+        x="50"
+        y="50"
+        textAnchor="middle"
+        dominantBaseline="central"
+        fill="url(#logoGradient)"
+        fontFamily="'Palatino Linotype', 'Book Antiqua', Palatino, serif"
+        fontSize="32"
+        fontWeight="300"
+        letterSpacing="-2"
+      >
+        BH
+      </text>
+
+      {/* Gradient definition */}
+      <defs>
+        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#f5f0e8" />
+          <stop offset="100%" stopColor="#c9a87c" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+
   const volunteering = [
     {
       org: "Military Surviving Siblings & TAPS",
@@ -379,6 +442,15 @@ export default function BenHarrisResume() {
           transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
           position: 'relative'
         }}>
+          {/* Logo - appears at top */}
+          <div style={{
+            marginBottom: '40px',
+            display: 'flex',
+            justifyContent: 'center'
+          }}>
+            <Logo size={isMobile ? 48 : 64} />
+          </div>
+
           {/* Small profile image that appears after scrolling - desktop only */}
           {!isMobile && (
             <div style={{
