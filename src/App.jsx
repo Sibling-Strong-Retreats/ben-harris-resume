@@ -62,7 +62,7 @@ export default function BenHarrisResume() {
         setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
         setTestimonialFade(true);
       }, 500);
-    }, 8000);
+    }, 12000);
     return () => clearInterval(interval);
   }, [testimonials.length]);
 
@@ -129,14 +129,16 @@ export default function BenHarrisResume() {
       org: "Military Surviving Siblings & TAPS",
       role: "Facilitator / Peer Mentor / Advocate",
       period: "Jun 2012 — Present",
-      description: "Founded ~300-member group for Military Surviving Siblings. Addressed 5,000 attendees at DoD/VA Joint Conference on Suicide Prevention."
+      description: "Founded ~300-member group for Military Surviving Siblings. Addressed 5,000 attendees at DoD/VA Joint Conference on Suicide Prevention.",
+      highlights: ["~300 Members", "5,000 Conference Attendees", "DoD/VA Partnership", "Peer Mentorship"]
     },
     {
       org: "Inkomoko",
       role: "Entrepreneur-in-Residence / Mentor",
       period: "Apr 2013 — May 2013",
       location: "Kigali, Rwanda",
-      description: "1 of 2 mentors in inaugural cohort; mentored business owners for 7 weeks in Africa."
+      description: "1 of 2 mentors in inaugural cohort; mentored business owners for 7 weeks in Africa.",
+      highlights: ["Inaugural Cohort", "7 Weeks in Rwanda", "Business Mentorship", "International Development"]
     }
   ];
 
@@ -241,7 +243,8 @@ export default function BenHarrisResume() {
               { label: 'Email', value: 'benharris207@gmail.com' },
               { label: 'Phone', value: '404.387.3323' },
               { label: 'Location', value: 'Decatur, GA' },
-              { label: 'LinkedIn', value: '/in/benharris207', url: 'https://www.linkedin.com/in/benharris207' }
+              { label: 'LinkedIn', value: '/in/benharris207', url: 'https://www.linkedin.com/in/benharris207' },
+              { label: 'Resume', value: 'Download PDF', url: '/Ben Harris 2026 Resume & Testimonials.pdf', download: true }
             ].map((item, i) => (
               <div key={i} style={{
                 opacity: isLoaded ? 1 : 0,
@@ -259,7 +262,7 @@ export default function BenHarrisResume() {
                   {item.label}
                 </span>
                 {item.url ? (
-                  <a href={item.url} target="_blank" rel="noopener noreferrer" style={{
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" download={item.download} style={{
                     color: '#c9a87c',
                     textDecoration: 'none',
                     transition: 'opacity 0.3s ease'
@@ -591,56 +594,106 @@ export default function BenHarrisResume() {
             letterSpacing: '0.4em',
             textTransform: 'uppercase',
             color: '#5a554d',
-            marginBottom: '32px',
+            marginBottom: '48px',
             fontFamily: "'Trebuchet MS', sans-serif",
             fontWeight: 500
           }}>
             Volunteering & Impact
           </h2>
 
-          {volunteering.map((vol, i) => (
-            <div key={i} style={{ marginBottom: i < volunteering.length - 1 ? '28px' : 0 }}>
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'baseline',
-                flexWrap: 'wrap',
-                gap: '12px'
-              }}>
-                <h3 style={{
-                  fontSize: '1.2rem',
-                  fontWeight: 400,
-                  margin: '0 0 6px 0',
-                  color: '#f5f0e8'
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            {volunteering.map((vol, i) => (
+              <div
+                key={i}
+                onMouseEnter={() => setActiveSection(`vol-${i}`)}
+                onMouseLeave={() => setActiveSection(null)}
+                style={{
+                  padding: '24px 28px',
+                  marginLeft: '-28px',
+                  borderRadius: '4px',
+                  background: activeSection === `vol-${i}` ? 'rgba(201, 168, 124, 0.03)' : 'transparent',
+                  borderLeft: activeSection === `vol-${i}` ? '2px solid #c9a87c' : '2px solid transparent',
+                  transition: 'all 0.4s ease',
+                  cursor: 'default'
+                }}
+              >
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'baseline',
+                  marginBottom: '6px',
+                  flexWrap: 'wrap',
+                  gap: '12px'
                 }}>
-                  {vol.org}
-                </h3>
-                <span style={{
-                  fontSize: '0.8rem',
-                  color: '#6a655d',
-                  fontFamily: "'Trebuchet MS', sans-serif"
+                  <h3 style={{
+                    fontSize: '1.3rem',
+                    fontWeight: 400,
+                    margin: 0,
+                    color: '#f5f0e8'
+                  }}>
+                    {vol.org}
+                  </h3>
+                  <span style={{
+                    fontSize: '0.8rem',
+                    color: '#6a655d',
+                    fontFamily: "'Trebuchet MS', sans-serif",
+                    letterSpacing: '0.1em'
+                  }}>
+                    {vol.period}
+                  </span>
+                </div>
+
+                <p style={{
+                  fontSize: '1rem',
+                  color: '#c9a87c',
+                  margin: '0 0 4px 0',
+                  fontStyle: 'italic'
                 }}>
-                  {vol.period}
-                </span>
+                  {vol.role}
+                </p>
+
+                {vol.location && (
+                  <p style={{
+                    fontSize: '0.8rem',
+                    color: '#5a554d',
+                    margin: '0 0 12px 0',
+                    fontFamily: "'Trebuchet MS', sans-serif"
+                  }}>
+                    {vol.location}
+                  </p>
+                )}
+
+                <p style={{
+                  fontSize: '0.95rem',
+                  lineHeight: 1.7,
+                  color: '#8a8275',
+                  margin: '0 0 16px 0'
+                }}>
+                  {vol.description}
+                </p>
+
+                <div style={{
+                  display: 'flex',
+                  gap: '10px',
+                  flexWrap: 'wrap'
+                }}>
+                  {vol.highlights.map((tag, j) => (
+                    <span key={j} style={{
+                      fontSize: '0.72rem',
+                      padding: '5px 12px',
+                      background: 'rgba(201, 168, 124, 0.08)',
+                      border: '1px solid rgba(201, 168, 124, 0.15)',
+                      borderRadius: '20px',
+                      color: '#a09485',
+                      fontFamily: "'Trebuchet MS', sans-serif"
+                    }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <p style={{
-                fontSize: '1rem',
-                color: '#c9a87c',
-                margin: '0 0 8px 0',
-                fontStyle: 'italic'
-              }}>
-                {vol.role}
-              </p>
-              <p style={{
-                fontSize: '0.95rem',
-                lineHeight: 1.7,
-                color: '#8a8275',
-                margin: 0
-              }}>
-                {vol.description}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </section>
 
         {/* Education section */}
