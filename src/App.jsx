@@ -459,10 +459,10 @@ export default function BenHarrisResume() {
               <div style={{
                 position: 'absolute',
                 top: '-8px',
-                left: '-140px',
+                left: scrollY > 500 ? '-20px' : '-130px',
                 opacity: Math.min(1, Math.max(0, (scrollY - 400) / 200)),
                 transform: `scale(${Math.min(1, Math.max(0.8, (scrollY - 300) / 300))})`,
-                transition: 'opacity 0.3s ease, transform 0.3s ease',
+                transition: 'opacity 0.3s ease, transform 0.3s ease, left 0.5s ease',
                 pointerEvents: 'none'
               }}>
                 <img
