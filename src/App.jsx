@@ -451,41 +451,44 @@ export default function BenHarrisResume() {
             <Logo size={isMobile ? 48 : 64} />
           </div>
 
-          {/* Small profile image that appears after scrolling - desktop only */}
-          {!isMobile && (
-            <div style={{
-              position: 'absolute',
-              top: '-20px',
-              left: '-20px',
-              opacity: Math.min(1, Math.max(0, (scrollY - 400) / 200)),
-              transform: `scale(${Math.min(1, Math.max(0.8, (scrollY - 300) / 300))})`,
-              transition: 'opacity 0.3s ease, transform 0.3s ease',
-              pointerEvents: 'none'
-            }}>
-              <img
-                src={`${import.meta.env.BASE_URL}ben.jpg`}
-                alt="Ben Harris"
-                style={{
-                  width: '120px',
-                  height: 'auto',
-                  borderRadius: '8px',
-                  border: '2px solid rgba(201, 168, 124, 0.3)',
-                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
-                  display: 'block'
-                }}
-              />
-            </div>
-          )}
-
           <div style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: '20px',
-            marginBottom: '12px',
-            flexWrap: 'wrap',
-            marginLeft: !isMobile && scrollY > 500 ? '110px' : '0',
-            transition: 'margin-left 0.5s ease'
+            position: 'relative'
           }}>
+            {/* Small profile image that appears after scrolling - desktop only */}
+            {!isMobile && (
+              <div style={{
+                position: 'absolute',
+                top: '-8px',
+                left: '-140px',
+                opacity: Math.min(1, Math.max(0, (scrollY - 400) / 200)),
+                transform: `scale(${Math.min(1, Math.max(0.8, (scrollY - 300) / 300))})`,
+                transition: 'opacity 0.3s ease, transform 0.3s ease',
+                pointerEvents: 'none'
+              }}>
+                <img
+                  src={`${import.meta.env.BASE_URL}ben.jpg`}
+                  alt="Ben Harris"
+                  style={{
+                    width: '120px',
+                    height: 'auto',
+                    borderRadius: '8px',
+                    border: '2px solid rgba(201, 168, 124, 0.3)',
+                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
+                    display: 'block'
+                  }}
+                />
+              </div>
+            )}
+
+            <div style={{
+              display: 'flex',
+              alignItems: 'baseline',
+              gap: '20px',
+              marginBottom: '12px',
+              flexWrap: 'wrap',
+              marginLeft: !isMobile && scrollY > 500 ? '110px' : '0',
+              transition: 'margin-left 0.5s ease'
+            }}>
             <h1 style={{
               fontSize: 'clamp(2.5rem, 8vw, 4rem)',
               fontWeight: 400,
@@ -522,6 +525,7 @@ export default function BenHarrisResume() {
           }}>
             Communications · Engagement · Leadership
           </p>
+          </div>
 
           <div style={{
             display: 'flex',
